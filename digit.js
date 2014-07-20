@@ -44,3 +44,33 @@ _.each(S.squares, function(s) {
   // of the squares in the units of s, but not s itself
   S.peers[s] = _.uniq(_.without(_.flatten(S.units[s]), s));
 })
+
+// convert grid to {square: digits}, or return false
+// if a contradiction is detected
+function parse_grid(grid) {
+  var values = _.object(_.map(S.squares, function(s) {
+    return [s, S.digits];
+  }))
+  // to start, every square can be any dighit; then assign values from the grid
+  _.each(grid_values(grid), function(d,s) {
+    if (S.digits.indexOf(d) !== -1 && !assign(values, s, d)) {
+      return false;
+    }
+  })
+  return values;
+}
+
+// grid to {square: char} with '0' or '.' for empties
+function grid_values(grid) {
+  return _.object(_.map(_.filter(grid, function(c) {
+    return (S.digits+'0.').indexOf(c) !== -1;
+    // ignore any character that is not a digit, a 0 or a period
+  }), function(c, i) {
+    return [S.squares[i], c];
+  }))
+}
+
+function assign(values, s, d) {
+  values[s] = d;
+  return values;
+}
