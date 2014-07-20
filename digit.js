@@ -70,7 +70,45 @@ function grid_values(grid) {
   }))
 }
 
+// eliminate all the other values (except d) from values[s] and propagate
+// return values, except return false if a contradiction is detected
 function assign(values, s, d) {
-  values[s] = d;
+  var other_values = values[s].replace(d,'');
+  if (_.every(other_values, function(d2) { return eliminate(values, s, d2) })) {
+    return values;
+  } else {
+    return false;
+  }
+}
+
+// eliminate d from values[s]; propagate when values or places <= 2
+// return values, except return false if a contradiction is detected
+function eliminate(values, s, d) {
+  if (values[s].indexOf(d) === -1) {
+    return values; // already eliminated
+  }
+  values[s] = values[s].replace(d,'');
+
+  // (1) If a square is reduced to one value d2, then eliminate d2 from peers
+  if (values[s].length === 0) return false // contradiction: removed last value
+  else if (values[s].length === 1) {
+    var d2 = values[s];
+    if (!_.every(S.peers[s], function(s2) { return eliminate(values, s2, d2) })) {
+      return false;
+    }
+  }
+
+  // (2) If a unit u is reduced to only one place for a value d, then put it
+  // there
+  _.each(S.units[s], function(u) {
+    var dplaces = _.filter(u, function(s) {
+      return values[s].indexOf(d) !== -1;
+    })
+    if (dplaces.length === 0) return false; // contradiction: no place for d
+    else if (dplaces.length === 1) {
+      // d can only only be in one place in unit; assign it there
+      if (!assign(values, dplaces[0], d)) return false;
+    }
+  })
   return values;
 }
