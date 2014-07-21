@@ -112,3 +112,19 @@ function eliminate(values, s, d) {
   })
   return values;
 }
+
+// Display these values as a 2-D grid
+function display(values) {
+  var width = 1 + _.max(values, function(v, k) {
+    return v.length;
+  }).length;
+  var line = [];
+  _.times(3, function(n) { line.push(Array(width*3 + 1).join('-')); })
+  line = line.join('+');
+  _.each(S.rows, function(r) {
+    console.log(_.map(S.cols, function(c) {
+      return _.str.center(values[r+c], width) + (('36'.indexOf(c) !== -1)? '|' : '')
+    }).join(''));
+    if ('CF'.indexOf(r) !== -1) console.log(line);
+  })
+}
