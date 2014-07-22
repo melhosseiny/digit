@@ -114,7 +114,7 @@ function eliminate(values, s, d) {
   return values;
 }
 
-// Display these values as a 2-D grid
+// display these values as a 2-D grid
 function display(values) {
   var width = 1 + _.max(values, function(v, k) {
     return v.length;
@@ -130,25 +130,25 @@ function display(values) {
   })
 }
 
-// Using depth-first search and propagation, try all possible values
+// using depth-first search and propagation, try all possible values
 function search(values) {
   if (!values) return false; // failed earlier
   _.every(S.squares, function(s) {
-    return values[s].length === 1
+    return values[s].length === 1;
   })
   if (_.every(S.squares, function(s) {
-    return values[s].length === 1
+    return values[s].length === 1;
   })) return values; // Solved!
 
   // Choose the unfilled square s with the fewest possibilities
   var s = _.min(_.filter(S.squares, function(s) {
-    return values[s].length > 1
+    return values[s].length > 1;
   }), function(s) {
-    return values[s].length
-  })
+    return values[s].length;
+  });
   return some(_.map(values[s], function(d) {
-    return search(assign(_.clone(values), s, d))
-  }))
+    return search(assign(_.clone(values), s, d));
+  }));
 }
 
 // return some element of seq that is true
@@ -156,8 +156,39 @@ function some(seq) {
   var e = _.find(seq, function(e) {
     if (e) { return true }; // is e truthy?
   })
-  if (e) return e // was e found?
-  return false
+  if (e) return e; // was e found?
+  return false;
 }
 
 function solve(grid) { return display(search(parse_grid(grid))) }
+
+// Make a random puzzle with N or more assignments. Restart on contradictions.
+// Note the resulting puzzle is not guaranteed to be solvable, but empirically
+// about 99.8% of them are solvable. Some have multiple solutions.
+function random_puzzle(N) {
+  N = N || 26;
+  var values = {};
+  _.each(S.squares, function(s) {
+    values[s] = S.digits;
+  })
+
+  var shuffled_squares = _.shuffle(S.squares);
+  for (var i = 0; i < shuffled_squares.length; i++) {
+    var s = shuffled_squares[i];
+    if (!assign(values, s, _.sample(values[s]))) {
+      break;
+    }
+    var ds = _.map(_.filter(S.squares, function(s) {
+      return values[s].length === 1;
+    }), function(s) {
+      return values[s];
+    });
+    if (ds.length >= N && _.uniq(ds).length >= 8) {
+      return _.map(S.squares, function(s) {
+        if (values[s].length === 1) return values[s];
+        else return '.';
+      }).join('');
+    }
+  }
+  return random_puzzle(N); // give up and make a new puzzle
+}
