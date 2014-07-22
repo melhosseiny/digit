@@ -1,10 +1,1 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <script src='node_modules/underscore/underscore-min.js'></script>
-    <script src='node_modules/underscore.string/dist/underscore.string.min.js'></script>
-    <script src='digit.js'></script>
-  </head>
-  <body>
-  </body>
-</html>
+<!DOCTYPE html><html ng-app="digit"><head><script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular.min.js"></script><script src="node_modules/underscore/underscore.js"></script><script src="node_modules/underscore.string/dist/underscore.string.min.js"></script><script src="app/js/app.js"></script></head><body><main ng-controller="DigitCtrl"><div ng-hide="check()"><table><tr ng-repeat="r in S.rows"><td ng-repeat="c in S.cols" ng-click="rotate(r+c)">{{puzzle[r+c]|hideifmany}}</td></tr></table><a href="" ng-click="solve()">Solve</a></div><div ng-show="check()"><p>You've solved this puzzle!</p></div></main></body></html>

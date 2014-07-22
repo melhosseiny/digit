@@ -1,16 +1,11 @@
+var digit = angular.module('digit', [])
+
+
 var S = {};
 
-// cross product of elements in A and elements in B
-function cross(A, B) {
-    var C = [];
-    _.each(A, function(a) {
-      _.each(B, function(b) {
-        C.push(a+b);
-      })
-    })
-    return C;
-}
-
+S.grid1 = '003020600900305001001806400008102900700000008006708200002609500800203009005010300'
+S.grid2 = '4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......'
+S.wikigrid = '53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79'
 S.digits = '123456789';
 S.rows = 'ABCDEFGHI';
 S.rowss = ['ABC','DEF','GHI'];
@@ -45,6 +40,53 @@ _.each(S.squares, function(s) {
   S.peers[s] = _.uniq(_.without(_.flatten(S.units[s]), s));
 })
 
+digit.value('S', S);
+
+/* Filters */
+
+digit.filter('hideifmany', function() {
+  return function(value) {
+    return value.length > 1? '' : value;
+  }
+})
+
+/* Controllers */
+
+digit.controller('DigitCtrl', ['$scope', 'S', function DigitCtrl($scope, S) {
+  $scope.S = S;
+
+  $scope.init_puzzle = parse_grid_no_cp(S.wikigrid);
+  $scope.puzzle = $scope.init_puzzle;
+
+  $scope.solve = function() {
+    $scope.puzzle = search(parse_grid(to_grid($scope.puzzle)));
+  }
+
+  $scope.check = function() {
+    $scope.solution = search(parse_grid(to_grid($scope.puzzle)));
+    return to_grid($scope.puzzle) === to_grid($scope.solution); 
+  }
+
+  $scope.rotate = function(square) {
+    if ($scope.puzzle[square].length > 1)
+      assign_no_cp($scope.puzzle, square, 1);
+    else if ($scope.init_puzzle[square].length !== 1)
+      assign_no_cp($scope.puzzle, square, 1 + (($scope.puzzle[square]) % 9));
+  }
+}]);
+
+
+// cross product of elements in A and elements in B
+function cross(A, B) {
+    var C = [];
+    _.each(A, function(a) {
+      _.each(B, function(b) {
+        C.push(a+b);
+      })
+    })
+    return C;
+}
+
 // convert grid to {square: digits}, or return false
 // if a contradiction is detected
 function parse_grid(grid) {
@@ -60,6 +102,28 @@ function parse_grid(grid) {
   return values;
 }
 
+// convert grid to {square: digits}, or return false
+// if a contradiction is detected
+function parse_grid_no_cp(grid) {
+  var values = _.object(_.map(S.squares, function(s) {
+    return [s, S.digits];
+  }))
+  // to start, every square can be any digit; then assign values from the grid
+  _.each(grid_values(grid), function(d,s) {
+    if (S.digits.indexOf(d) !== -1 && !assign_no_cp(values, s, d)) {
+      return false;
+    }
+  })
+  return values;
+}
+
+// convert {square: digits} to grid
+function to_grid(values) {
+  return _.map(_.values(values), function(v) {
+    return v.length > 1? '.' : v;
+  }).join('');
+}
+
 // grid to {square: char} with '0' or '.' for empties
 function grid_values(grid) {
   return _.object(_.map(_.filter(grid, function(c) {
@@ -68,6 +132,12 @@ function grid_values(grid) {
   }), function(c, i) {
     return [S.squares[i], c];
   }))
+}
+
+// assign value d to square s with no constraint propagation
+function assign_no_cp(values, s, d) {
+  values[s] = d;
+  return values;
 }
 
 // eliminate all the other values (except d) from values[s] and propagate
@@ -191,4 +261,8 @@ function random_puzzle(N) {
     }
   }
   return random_puzzle(N); // give up and make a new puzzle
+}
+
+function DigitCtrl($scope) {
+  $scope.puzzle = parse_grid(S.grid2);
 }

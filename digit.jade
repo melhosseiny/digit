@@ -1,0 +1,16 @@
+doctype html
+html(ng-app='digit')
+  head
+    script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular.min.js')
+    script(src='node_modules/underscore/underscore.js')
+    script(src='node_modules/underscore.string/dist/underscore.string.min.js')
+    script(src='app/js/app.js')
+  body
+    main(ng-controller='DigitCtrl')
+      div(ng-hide='check()')
+        table
+          tr(ng-repeat='r in S.rows')
+            td(ng-repeat='c in S.cols',ng-click='rotate(r+c)') {{puzzle[r+c]|hideifmany}}
+        a(href='',ng-click='solve()') Solve
+      div(ng-show='check()')
+        p You've solved this puzzle!
