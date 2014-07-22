@@ -51,7 +51,7 @@ function parse_grid(grid) {
   var values = _.object(_.map(S.squares, function(s) {
     return [s, S.digits];
   }))
-  // to start, every square can be any dighit; then assign values from the grid
+  // to start, every square can be any digit; then assign values from the grid
   _.each(grid_values(grid), function(d,s) {
     if (S.digits.indexOf(d) !== -1 && !assign(values, s, d)) {
       return false;
@@ -84,13 +84,14 @@ function assign(values, s, d) {
 // eliminate d from values[s]; propagate when values or places <= 2
 // return values, except return false if a contradiction is detected
 function eliminate(values, s, d) {
+  // console.log(values[s], s, d)
   if (values[s].indexOf(d) === -1) {
     return values; // already eliminated
   }
   values[s] = values[s].replace(d,'');
 
   // (1) If a square is reduced to one value d2, then eliminate d2 from peers
-  if (values[s].length === 0) return false // contradiction: removed last value
+  if (values[s].length === 0) return false; // contradiction: removed last value
   else if (values[s].length === 1) {
     var d2 = values[s];
     if (!_.every(S.peers[s], function(s2) { return eliminate(values, s2, d2) })) {
@@ -128,3 +129,35 @@ function display(values) {
     if ('CF'.indexOf(r) !== -1) console.log(line);
   })
 }
+
+// Using depth-first search and propagation, try all possible values
+function search(values) {
+  if (!values) return false; // failed earlier
+  _.every(S.squares, function(s) {
+    return values[s].length === 1
+  })
+  if (_.every(S.squares, function(s) {
+    return values[s].length === 1
+  })) return values; // Solved!
+
+  // Choose the unfilled square s with the fewest possibilities
+  var s = _.min(_.filter(S.squares, function(s) {
+    return values[s].length > 1
+  }), function(s) {
+    return values[s].length
+  })
+  return some(_.map(values[s], function(d) {
+    return search(assign(_.clone(values), s, d))
+  }))
+}
+
+// return some element of seq that is true
+function some(seq) {
+  var e = _.find(seq, function(e) {
+    if (e) { return true }; // is e truthy?
+  })
+  if (e) return e // was e found?
+  return false
+}
+
+function solve(grid) { return display(search(parse_grid(grid))) }
