@@ -8,6 +8,7 @@
   "dependencies": {
     "jade": "*",
     "underscore": "*",
-    "underscore.string": "*"
+    "underscore.string": "*",
+    "moment": "*"
   }
 }

@@ -52,11 +52,20 @@ digit.filter('hideifmany', function() {
 
 /* Controllers */
 
-digit.controller('DigitCtrl', ['$scope', 'S', function DigitCtrl($scope, S) {
+digit.controller('DigitCtrl', ['$scope', '$timeout', 'S', function DigitCtrl($scope, $timeout, S) {
   $scope.S = S;
+  $scope.init_moment = moment();
+  $scope.elapsed_time = 0;
 
   $scope.init_puzzle = parse_grid_no_cp(S.wikigrid);
   $scope.puzzle = $scope.init_puzzle;
+
+  $scope.tick = function() {
+    var diff = moment().diff($scope.init_moment);
+    var duration = moment.duration(diff);
+    $scope.elapsed_time = duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
+    $timeout($scope.tick, 1000);
+  }
 
   $scope.solve = function() {
     $scope.puzzle = search(parse_grid(to_grid($scope.puzzle)));
@@ -64,7 +73,7 @@ digit.controller('DigitCtrl', ['$scope', 'S', function DigitCtrl($scope, S) {
 
   $scope.check = function() {
     $scope.solution = search(parse_grid(to_grid($scope.puzzle)));
-    return to_grid($scope.puzzle) === to_grid($scope.solution); 
+    return to_grid($scope.puzzle) === to_grid($scope.solution);
   }
 
   $scope.rotate = function(square) {
@@ -73,6 +82,8 @@ digit.controller('DigitCtrl', ['$scope', 'S', function DigitCtrl($scope, S) {
     else if ($scope.init_puzzle[square].length !== 1)
       assign_no_cp($scope.puzzle, square, 1 + (($scope.puzzle[square]) % 9));
   }
+
+  $scope.tick()
 }]);
 
 

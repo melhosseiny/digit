@@ -1,0 +1,97 @@
+@charset "utf-8";
+
+body {
+  background-color: #fbfbf2;
+  color: #414a4c;
+  padding: 0em;
+  margin: 0em;
+}
+
+/* LAYOUT */
+
+main {
+  display: -webkit-flex;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+
+nav {
+  background-color: #b3e5d0;
+  width: 10em;
+  -webkit-flex: none;
+}
+
+#puzzle {
+  width: auto;
+  display: -webkit-flex;
+  -webkit-flex: 1;
+}
+
+#puzzle table {
+  border-spacing: 0;
+  border-collapse: separate;
+  font-size: 3vmin;
+  width: 100%;
+  height: 100vh;
+  margin: 0em;
+}
+
+#puzzle td {
+  background-color: blue;
+  /* padding: 4vh 4.9vw; */
+  background-color: rgba(0,0,0,0.05);
+  -webkit-transition: all 0.2s ease;
+  text-align: center;
+  vertical-align: middle;
+
+  /* disable text selection */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#puzzle td.init {
+  background-color: rgba(0,0,0,0.1);
+}
+
+#puzzle td:hover {
+  background-color: rgba(0,0,0,0.075);
+  -webkit-transition: all 0.2s ease;
+}
+
+/* NAV */
+
+nav {
+  padding: 3em;
+}
+
+nav time {
+  font-size: 2em;
+  line-height: 1.5;
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+}
+
+/* buttons */
+
+a.btn {
+  font-size: 1.3em;
+  display: block;
+  border-bottom: 0 none;
+  padding: 1em 1.5em;
+  margin-left: -2.3em;
+  margin-right:-2.3em;
+  z-index: 2000;
+  -webkit-transition: all 0.2s ease;
+  color: #414a4c;
+}
+
+a.btn:hover {
+  background-color: rgba(0,0,0,0.1);
+  -webkit-transition: all 0.2s ease;
+}
