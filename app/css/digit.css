@@ -27,6 +27,7 @@ nav {
   width: auto;
   display: -webkit-flex;
   -webkit-flex: 1;
+  flex: 1;  
 }
 
 #puzzle table {
@@ -43,6 +44,8 @@ nav {
   /* padding: 4vh 4.9vw; */
   background-color: rgba(0,0,0,0.05);
   -webkit-transition: background-color 0.2s ease;
+  -moz-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
   text-align: center;
   vertical-align: middle;
 
@@ -66,11 +69,15 @@ nav {
 #puzzle td:hover {
   background-color: rgba(0,0,0,0.075);
   -webkit-transition: background-color 0.2s ease;
+  -moz-transition: background-color 0.2s ease;
+  -transition: background-color 0.2s ease;
 }
 
 #puzzle td.active {
   background-color: rgba(255,167,23,0.5);
   -webkit-transition: background-color 1s ease;
+  -moz-transition: background-color 1s ease;
+  transition: background-color 1s ease;
 }
 
 #puzzle td.init.active {
@@ -101,13 +108,15 @@ a.btn {
   margin-left: -2.3em;
   margin-right:-2.3em;
   z-index: 2000;
-  -webkit-transition: all 0.2s ease;
+  -webkit-transition: background-color 0.2s ease;
+  -moz-transition: background-color 0.2s ease;
   color: #414a4c;
 }
 
 a.btn:hover {
   background-color: rgba(0,0,0,0.1);
-  -webkit-transition: all 0.2s ease;
+  -webkit-transition: background-color 0.2s ease;
+  -moz-transition: background-color 0.2s ease;
 }
 
 /* WINNING TOAST */
