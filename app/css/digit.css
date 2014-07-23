@@ -42,7 +42,7 @@ nav {
   background-color: blue;
   /* padding: 4vh 4.9vw; */
   background-color: rgba(0,0,0,0.05);
-  -webkit-transition: all 0.2s ease;
+  -webkit-transition: background-color 0.2s ease;
   text-align: center;
   vertical-align: middle;
 
@@ -59,9 +59,23 @@ nav {
   background-color: rgba(0,0,0,0.1);
 }
 
+#puzzle td:not(.init) {
+  color: #7A8082;
+}
+
 #puzzle td:hover {
   background-color: rgba(0,0,0,0.075);
-  -webkit-transition: all 0.2s ease;
+  -webkit-transition: background-color 0.2s ease;
+}
+
+#puzzle td.active {
+  background-color: rgba(255,167,23,0.5);
+  -webkit-transition: background-color 1s ease;
+}
+
+#puzzle td.init.active {
+  background-color: rgba(255,167,23,0.6);
+
 }
 
 /* NAV */

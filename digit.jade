@@ -19,7 +19,7 @@ html(ng-app='digit')
       div#puzzle(ng-hide='check()')
         table
           tr(ng-repeat='r in S.rows')
-            td(ng-class='{init: init_puzzle[r+c].length === 1}',ng-repeat='c in S.cols',ng-click='rotate(r+c)') {{puzzle[r+c]|hideifmany}}
+            td(ng-mouseover='highlight_peers(r+c)',ng-repeat='c in S.cols',ng-class='{init: init_puzzle[r+c].length === 1, active: active_peers.indexOf(r+c) !== -1}',ng-click='rotate(r+c)') {{puzzle[r+c]|hideifmany}}
         // a(href='',ng-click='solve()') Solve
       div(ng-show='check()')
         p You've solved this puzzle!

@@ -60,6 +60,8 @@ digit.controller('DigitCtrl', ['$scope', '$timeout', 'S', function DigitCtrl($sc
   $scope.init_puzzle = parse_grid_no_cp(S.wikigrid);
   $scope.puzzle = $scope.init_puzzle;
 
+  $scope.active_peers = [];
+
   $scope.tick = function() {
     var diff = moment().diff($scope.init_moment);
     var duration = moment.duration(diff);
@@ -77,6 +79,7 @@ digit.controller('DigitCtrl', ['$scope', '$timeout', 'S', function DigitCtrl($sc
   }
 
   $scope.rotate = function(square) {
+    $scope.active_peers = S.peers[square];
     if ($scope.init_puzzle[square].length !== 1) {
       // get initial peers to omit
       var omit = _.uniq(_.filter(_.map(S.peers[square], function(p) {
@@ -91,6 +94,10 @@ digit.controller('DigitCtrl', ['$scope', '$timeout', 'S', function DigitCtrl($sc
       }
       assign_no_cp($scope.puzzle, square, next);
     }
+  }
+
+  $scope.highlight_peers = function(square) {
+    $scope.active_peers = S.peers[square];
   }
 
   $scope.tick()
