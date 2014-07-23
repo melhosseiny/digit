@@ -77,10 +77,20 @@ digit.controller('DigitCtrl', ['$scope', '$timeout', 'S', function DigitCtrl($sc
   }
 
   $scope.rotate = function(square) {
-    if ($scope.puzzle[square].length > 1)
-      assign_no_cp($scope.puzzle, square, 1);
-    else if ($scope.init_puzzle[square].length !== 1)
-      assign_no_cp($scope.puzzle, square, 1 + (($scope.puzzle[square]) % 9));
+    if ($scope.init_puzzle[square].length !== 1) {
+      // get initial peers to omit
+      var omit = _.uniq(_.filter(_.map(S.peers[square], function(p) {
+        return $scope.init_puzzle[p]
+      }), function(v) {
+        return v.length === 1;
+      }));
+
+      var next = 1 + (($scope.puzzle[square]) % 9);
+      while (omit.indexOf(next.toString()) != -1) {
+        next = 1 + (next % 9);
+      }
+      assign_no_cp($scope.puzzle, square, next);
+    }
   }
 
   $scope.tick()
