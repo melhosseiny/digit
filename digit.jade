@@ -14,12 +14,11 @@ html(ng-app='digit')
         h1 Digit
         time {{elapsed_time}}
         a.btn New Puzzle
-        a.btn Solve
+        a.btn(ng-click='solve()') Solve
         a.btn Hint
-      div#puzzle(ng-hide='check()')
+      div#puzzle
+        div#win(ng-show='check()')
+          p Awesome. You've solved this puzzle!
         table
           tr(ng-repeat='r in S.rows')
             td(ng-mouseover='highlight_peers(r+c)',ng-repeat='c in S.cols',ng-class='{init: init_puzzle[r+c].length === 1, active: active_peers.indexOf(r+c) !== -1}',ng-click='rotate(r+c)') {{puzzle[r+c]|hideifmany}}
-        // a(href='',ng-click='solve()') Solve
-      div(ng-show='check()')
-        p You've solved this puzzle!
