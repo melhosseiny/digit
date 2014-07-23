@@ -13,11 +13,11 @@ html(ng-app='digit')
       nav
         h1 Digit
         time {{elapsed_time}}
-        a.btn New Puzzle
+        a.btn(ng-click='new_puzzle()') New Puzzle
         a.btn(ng-click='solve()') Solve
         a.btn Hint
       div#puzzle
-        div#win(ng-show='check()')
+        div#win(ng-show='check() && !solved_by_machine')
           p Awesome. You've solved this puzzle!
         table
           tr(ng-repeat='r in S.rows')
