@@ -1,6 +1,10 @@
 doctype html
-html(ng-app='digit')
+html(ng-app='digit', lang='en')
   head
+    meta(charset='utf-8')
+    meta(http-equiv='default-style',content='default')
+    meta(name='viewport',content='width=device-width, initial-scale=1.0, maximum-scale=1',user-scalable='no')
+    title= Digit
     link(rel='stylesheet', href='app/css/elem.css')
     link(rel='stylesheet', href='app/css/digit.css')
     script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular.min.js')
@@ -10,15 +14,17 @@ html(ng-app='digit')
     script(src='app/js/app.js')
   body
     main(ng-controller='DigitCtrl')
+      div#win(ng-show='check() && !solved_by_machine')
+        p Awesome. You've solved this puzzle!
       nav
-        h1 Digit
+        h1
+          span#logo #
+          | d
         time {{elapsed_time}}
-        a.btn(ng-click='new_puzzle()') New Puzzle
+        a.btn(ng-click='new_puzzle()') New
         a.btn(ng-click='solve()') Solve
         a.btn Hint
       div#puzzle
-        div#win(ng-show='check() && !solved_by_machine')
-          p Awesome. You've solved this puzzle!
         table
           tr(ng-repeat='r in S.rows')
             td(ng-mouseover='highlight_peers(r+c)',ng-repeat='c in S.cols',ng-class='{init: init_puzzle[r+c].length === 1, active: active_peers.indexOf(r+c) !== -1}',ng-click='rotate(r+c)') {{puzzle[r+c]|hideifmany}}

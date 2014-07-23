@@ -73,7 +73,9 @@ digit.controller('DigitCtrl', ['$scope', '$timeout', 'S', function DigitCtrl($sc
   $scope.tick = function() {
     var diff = moment().diff($scope.init_moment);
     var duration = moment.duration(diff);
-    $scope.elapsed_time = duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
+    $scope.elapsed_time = [_.str.pad(duration.hours(), 2, '0'),
+                           _.str.pad(duration.minutes(), 2, '0'),
+                           _.str.pad(duration.seconds(), 2, '0')].join(':');
     timeout_id = $timeout($scope.tick, 1000);
   }
 
