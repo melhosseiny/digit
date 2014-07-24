@@ -12,18 +12,19 @@ html(ng-app='digit', lang='en')
     script(src='node_modules/underscore.string/dist/underscore.string.min.js')
     script(src='node_modules/moment/min/moment.min.js')
     script(src='app/js/app.js')
-  body
-    main(ng-controller='DigitCtrl')
+  body(ng-controller='DigitCtrl')
+    header
+      h1#logo digit
+      img(src='app/img/hamburger.png',alt='Menu',ng-click='active_menu = active_menu? !active_menu : true')
+      time {{elapsed_time}}
+    main
       div#win(ng-show='check() && !solved_by_machine')
         p Awesome. You've solved this puzzle!
-      nav
-        h1
-          span#logo #
-          | d
-        time {{elapsed_time}}
-        a.btn(ng-click='new_puzzle()') New
-        a.btn(ng-click='solve()') Solve
-        a.btn Hint
+      nav.vertical(ng-class='{active: active_menu}')
+        ul
+          li: a.btn(ng-click='new_puzzle()') New
+          li: a.btn(ng-click='solve()') Solve
+          li: a.btn Hint
       div#puzzle
         table
           tr(ng-repeat='r in S.rows')
