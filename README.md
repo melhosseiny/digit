@@ -2,9 +2,9 @@
 
 A Sudoku game based on [Peter Norvig's solver](http://norvig.com/sudoku.html). You can play it [here](http://digit-sudoku.appspot.com/).
 
-![Digit on Google Nexus 7 2, Chrome](/app/img/digit-nexus72/png?raw=true "Digit on Google Nexus 7 2, Chrome")
+![Digit on Google Nexus 7 2, Chrome](/app/img/digit-nexus72.png?raw=true "Digit on Google Nexus 7 2, Chrome")
 
-![Digit on Google Nexus 4, Chrome](/app/img/digit-nexus4/png?raw=true "Digit on Google Nexus 4, Chrome")
+![Digit on Google Nexus 4, Chrome](/app/img/digit-nexus4.png?raw=true "Digit on Google Nexus 4, Chrome")
 
 ## Supported (tested) browsers
 
