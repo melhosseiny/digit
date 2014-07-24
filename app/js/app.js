@@ -27,7 +27,8 @@ digit.controller('DigitCtrl', ['$scope', '$timeout', 'S', function DigitCtrl($sc
 
   // create a new random puzzle
   $scope.new_puzzle = function() {
-    $scope.init_puzzle = parse_grid_no_cp(random_puzzle());
+    var r = random_puzzle();
+    $scope.init_puzzle = parse_grid_no_cp(r);
     $scope.puzzle = angular.copy($scope.init_puzzle);
     $scope.init_moment = moment();
     $scope.tick();

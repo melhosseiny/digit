@@ -115,7 +115,6 @@ function assign(values, s, d) {
 // eliminate d from values[s]; propagate when values or places <= 2
 // return values, except return false if a contradiction is detected
 function eliminate(values, s, d) {
-  // console.log(values[s], s, d)
   if (values[s].indexOf(d) === -1) {
     return values; // already eliminated
   }
@@ -132,16 +131,17 @@ function eliminate(values, s, d) {
 
   // (2) If a unit u is reduced to only one place for a value d, then put it
   // there
-  _.each(S.units[s], function(u) {
-    var dplaces = _.filter(u, function(s) {
+  for (var u = 0; u < S.units[s].length; u++) { // _.each doesn't seem to work
+    var dplaces = _.filter(S.units[s][u], function(s) {
       return values[s].indexOf(d) !== -1;
     })
-    if (dplaces.length === 0) return false; // contradiction: no place for d
-    else if (dplaces.length === 1) {
-      // d can only only be in one place in unit; assign it there
-      if (!assign(values, dplaces[0], d)) return false;
-    }
-  })
+
+    if (dplaces.length == 0)
+      return false;
+    else if (dplaces.length == 1)
+      if (!assign(values, dplaces[0], d))
+        return false;
+  }
   return values;
 }
 
@@ -164,9 +164,11 @@ function display(values) {
 // using depth-first search and propagation, try all possible values
 function search(values) {
   if (!values) return false; // failed earlier
+
   _.every(S.squares, function(s) {
     return values[s].length === 1;
   })
+
   if (_.every(S.squares, function(s) {
     return values[s].length === 1;
   })) return values; // Solved!
@@ -177,17 +179,11 @@ function search(values) {
   }), function(s) {
     return values[s].length;
   });
-  return some(_.map(values[s], function(d) {
-    return search(assign(_.clone(values), s, d));
-  }));
-}
 
-// return some element of seq that is true
-function some(seq) {
-  var e = _.find(seq, function(e) {
-    if (e) { return true }; // is e truthy?
-  })
-  if (e) return e; // was e found?
+  for (var d = 0; d < values[s].length; d++) {
+    var res = search(assign(_.clone(values), s, values[s].charAt(d)));
+    if (res) return res;
+  }
   return false;
 }
 
@@ -197,7 +193,7 @@ function solve(grid) { return display(search(parse_grid(grid))) }
 // Note the resulting puzzle is not guaranteed to be solvable, but empirically
 // about 99.8% of them are solvable. Some have multiple solutions.
 function random_puzzle(N) {
-  N = N || 26;
+  N = N || 17;
   var values = {};
   _.each(S.squares, function(s) {
     values[s] = S.digits;
