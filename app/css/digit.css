@@ -85,7 +85,7 @@ nav {
 }
 
 /* Mobile layout */
-@media (max-width: 500px) {
+@media (max-width: 540px) {
   #logo {
     display: none;
   }
@@ -214,7 +214,7 @@ nav.vertical a:hover, nav.vertical a:active {
   border-bottom: none;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 540px) {
   nav {
     text-align: left;
   }
