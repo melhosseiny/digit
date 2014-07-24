@@ -12,9 +12,11 @@ A Sudoku game based on [Peter Norvig's solver](http://norvig.com/sudoku.html). Y
 - Latest Firefox
 - IE 10, 11
 
-Chrome and Firefox are also supported on iOS and Android.
+Chrome and Firefox are also supported on iOS and Android. The app should work on any browser that supports Flexbox and viewport units.
 
 ## Application structure
+
+![Digit architecture](/app/img/digit-arch.png?raw=true "Digit architecture")
 
     app/
       css/              --> css files
