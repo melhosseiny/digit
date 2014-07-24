@@ -80,7 +80,7 @@ digit.controller('DigitCtrl', ['$scope', '$timeout', 'S', function DigitCtrl($sc
   }
 
   $scope.solve = function() {
-    $scope.puzzle = search(parse_grid(to_grid($scope.puzzle)));
+    $scope.puzzle = search(parse_grid(to_grid($scope.init_puzzle)));
     $scope.solved_by_machine = true;
     $timeout.cancel(timeout_id);
   }

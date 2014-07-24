@@ -18,7 +18,9 @@ html(ng-app='digit', lang='en')
       img(src='app/img/hamburger.png',alt='Menu',ng-click='active_menu = active_menu? !active_menu : true')
       time {{elapsed_time}}
     main
-      div#win(ng-show='check() && !solved_by_machine')
+      div.solve(ng-show='check() && solved_by_machine')
+        p See how easy it is?
+      div.solve(ng-show='check() && !solved_by_machine')
         p Awesome. You've solved this puzzle!
       nav.vertical(ng-class='{active: active_menu}')
         ul
