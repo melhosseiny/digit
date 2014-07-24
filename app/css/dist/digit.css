@@ -699,7 +699,7 @@ nav.vertical li a, nav.vertical li:hover a  {
   header img { display: inline; }
 
   nav {
-    margin-left: -12em;
+    margin-left: -13em;
     -webkit-transition: margin-left 0.1s ease;
     -moz-transition: margin-left 0.1s ease;
     transition: margin-left 0.1s ease;

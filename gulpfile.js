@@ -26,7 +26,7 @@ gulp.task('scripts', function() {
 
 // concatenate and minify css
 gulp.task('minify-css', function() {
-  return gulp.src(['app/css/elem.css','app/css/digit.css'])
+  return gulp.src(['app/css/elem.css','app/css/app.css'])
     .pipe(concat('digit.css'))
     .pipe(gulp.dest('app/css/dist'))
     .pipe(rename('digit.min.css'))

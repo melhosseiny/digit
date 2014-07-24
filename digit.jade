@@ -7,7 +7,7 @@ html(ng-app='digit', lang='en')
     title= Digit
     link(rel='stylesheet', href='app/css/dist/digit.min.css')
     // link(rel='stylesheet', href='app/css/elem.css')
-    // link(rel='stylesheet', href='app/css/digit.css')
+    // link(rel='stylesheet', href='app/css/app.css')
     script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular.min.js')
     script(src='node_modules/underscore/underscore.js')
     script(src='node_modules/underscore.string/dist/underscore.string.min.js')
@@ -20,7 +20,7 @@ html(ng-app='digit', lang='en')
       h1#logo digit
       img(src='app/img/hamburger.png',alt='Menu',ng-click='active_menu = !active_menu')
       time {{elapsed_time}}
-    main(ng-click='active_menu = !active_menu')
+    main(ng-click='active_menu = false')
       div.solve(ng-show='check() && solved_by_machine')
         p See how easy it is?
       div.solve(ng-show='check() && !solved_by_machine')
@@ -29,7 +29,7 @@ html(ng-app='digit', lang='en')
         ul
           li: a.btn(ng-click='new_puzzle()') New
           li: a.btn(ng-click='solve()') Solve
-          li: a.btn Hint
+          // li: a.btn Hint
       div#puzzle
         table
           tr(ng-repeat='r in S.rows')
