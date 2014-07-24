@@ -18,3 +18,7 @@ handlers:
 - url: /.*
   static_files: 404.html
   upload: 404.html
+
+skip_files:
+- ^node_modules/gulp(.*/)?(.*/)?.*$
+- ^node_modules/jade/(.*/)?.*$
