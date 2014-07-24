@@ -1,4 +1,4 @@
-var digit = angular.module('digit', [])
+var digit = angular.module('digit', []);
 
 digit.value('S', S);
 
@@ -8,8 +8,8 @@ digit.value('S', S);
 digit.filter('hideifmany', function() {
   return function(value) {
     return value.length > 1? '' : value;
-  }
-})
+  };
+});
 
 /* Controllers */
 
@@ -32,14 +32,14 @@ digit.controller('DigitCtrl', ['$scope', '$timeout', 'S', function DigitCtrl($sc
     $scope.puzzle = angular.copy($scope.init_puzzle);
     $scope.init_moment = moment();
     $scope.tick();
-  }
+  };
 
   // solve the puzzle
   $scope.solve = function() {
     $scope.puzzle = search(parse_grid(to_grid($scope.init_puzzle)));
     $scope.solved_by_machine = true;
     $timeout.cancel(timeout_id);
-  }
+  };
 
   // make the clock tick
   $scope.tick = function() {
@@ -49,14 +49,14 @@ digit.controller('DigitCtrl', ['$scope', '$timeout', 'S', function DigitCtrl($sc
                            _.str.pad(duration.minutes(), 2, '0'),
                            _.str.pad(duration.seconds(), 2, '0')].join(':');
     timeout_id = $timeout($scope.tick, 1000);
-  }
+  };
 
   // is every square filled?
   $scope.is_filled = function() {
     return _.every($scope.puzzle, function(v, k) {
       return v.length === 1;
-    })
-  }
+    });
+  };
 
   // did the user solve the puzzle?
   $scope.check = function() {
@@ -67,7 +67,7 @@ digit.controller('DigitCtrl', ['$scope', '$timeout', 'S', function DigitCtrl($sc
         return true;
       }
     }
-  }
+  };
 
   // assign a value to a square by rotating values
   $scope.rotate = function(square) {
@@ -75,7 +75,7 @@ digit.controller('DigitCtrl', ['$scope', '$timeout', 'S', function DigitCtrl($sc
     if ($scope.init_puzzle[square].length !== 1) {
       // get initial peers to omit
       var omit = _.uniq(_.filter(_.map(S.peers[square], function(p) {
-        return $scope.init_puzzle[p]
+        return $scope.init_puzzle[p];
       }), function(v) {
         return v.length === 1;
       }));
@@ -86,12 +86,12 @@ digit.controller('DigitCtrl', ['$scope', '$timeout', 'S', function DigitCtrl($sc
       }
       assign_no_cp($scope.puzzle, square, next.toString());
     }
-  }
+  };
 
   // set active peers to the peers of the square the user is interested in
   $scope.highlight_peers = function(square) {
     $scope.active_peers = S.peers[square];
-  }
+  };
 
   $scope.tick(); // start the clock
 }]);
