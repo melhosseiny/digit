@@ -1,22 +1,17 @@
 @charset "utf-8";
 
-body {
-  background-color: #fbfbf2;
-  color: #414a4c;
-  padding: 0em;
-  margin: 0em;
-}
-
-/* LOGO */
-
-#logo {
-  margin: 0;
-  padding: 0.5rem 1rem;
-  display: inline-block;
-  font-size: 2em;
-}
-
 /* LAYOUT */
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+#logo { display: inline-block; }
+header img { display: none; }
+header time { float: right;}
 
 main {
   display: -webkit-box-flex;
@@ -27,72 +22,210 @@ main {
   height: 100vh;
 }
 
-header {
-  background-color: #303030;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  color: white;
-  border-bottom: 4px solid rgba(0,0,0,0.075);
-}
-
-header img {
-  padding: 0.5rem 1rem;;
-  margin-top: 0.4rem;
-  display: none;
-}
-
-header time {
-  float: right;
-  padding: 0.5rem 1rem;
-}
-
 nav {
-  background-color: #404040;
-  margin-top: 3.5rem;
-  width: 10em;
   -webkit-box-flex: none;
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
-  padding: 1rem;
-  text-align: center;
-  color: white;
-  border-right: 4px solid rgba(0,0,0,0.075);
-  -webkit-transition: margin-left 0.1s ease;
-  -moz-transition: margin-left 0.1s ease;
-  transition: margin-left 0.1s ease;
+  width: 10em;
+}
+
+nav.vertical ul, nav.vertical li { display: block; }
+
+nav.vertical li a {
+  display: block;
+  z-index: 2000;
 }
 
 #puzzle {
-  width: auto;
   -webkit-box-flex: 1;
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
+  width: auto;
   height: 100vh;
+}
+
+#puzzle table {
+  width: 100%;
+  height: 100vh;
+}
+
+#puzzle td {
+  /* disable text selection */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.solve {
+  display: block;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  width: 100vw;
+}
+
+/* BOXES: margin, padding and border */
+
+body {
+  padding: 0em;
+  margin: 0em;
+}
+
+#logo {
+  margin: 0;
+  padding: 0.5rem 1rem;
+}
+
+header { border-bottom: 4px solid rgba(0,0,0,0.075); }
+
+header img {
+  padding: 0.5rem 1rem;
+  margin-top: 0.4rem;
+}
+
+header time { padding: 0.5rem 1rem; }
+
+nav {
+  margin-top: 3.5rem;
+  padding: 1rem;
+  border-right: 4px solid rgba(0,0,0,0.075);
+}
+
+nav.vertical { padding-top: 0; }
+
+nav.vertical ul { margin-left: 0; margin-top: 0; }
+
+nav.vertical li a {
+  border-bottom: 0 none;
+  padding: 1em;
+  margin: 0 -1rem;
+}
+
+nav.vertical a, nav.vertical a:link, nav.vertical a:visited,
+nav.vertical a:hover, nav.vertical a:active, nav.vertical li:hover a {
+  border-bottom: none;
 }
 
 #puzzle table {
   border-spacing: 0;
   border-collapse: separate;
-  font-size: 4vmin;
-  width: 100%;
   margin: 0em;
-  height: 100vh;
   padding-top: 3.5rem;
 }
+#puzzle td { border: 1px solid rgba(0,0,0,0.05); }
 
-/* Mobile layout */
-@media (max-width: 540px) {
-  #logo {
-    display: none;
-  }
+.solve p { margin-bottom: 1.5em; }
 
-  header img {
-    display: inline;
-  }
+/* TYPOGRAPHY */
+
+#logo { font-size: 2em; }
+
+header time {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+nav { text-align: center; }
+nav.vertical ul, nav.vertical li { text-align: left; }
+nav.vertical li a { font-size: 1.3em; }
+
+#puzzle td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+#puzzle table { font-size: 4vmin; }
+
+.solve { text-align: center; }
+
+.solve p {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+/* COLOR */
+
+body {
+  background-color: #fbfbf2;
+  color: #414a4c;
+}
+
+header {
+  background-color: #303030;
+  color: white;
+  border-bottom: 4px solid rgba(0,0,0,0.075);
+}
+
+nav {
+  background-color: #404040;
+  color: white;
+  border-right: 4px solid rgba(0,0,0,0.075);
+}
+
+nav.vertical li a { color: #aaaaaa; }
+
+nav.vertical li:hover a {
+  background-color: rgba(0,0,0,0.2);
+  color: white;
+}
+
+#puzzle td {
+  background-color: blue;
+  background-color: rgba(0,0,0,0.05);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+#puzzle td.init { background-color: rgba(0,0,0,0.1); }
+#puzzle td:not(.init) { color: #7A8082; }
+#puzzle td:hover { background-color: rgba(0,0,0,0.075); }
+#puzzle td.active { background-color: rgba(255,167,23,0.5); }
+#puzzle td.init.active { background-color: rgba(255,167,23,0.6); }
+
+.solve {
+  background-color: #d5e9f0;
+  background-color: rgba(213,233,240,0.7);
+}
+
+/* ANIMATION/TRANSITION */
+
+nav {
+  -webkit-transition: margin-left 0.1s ease;
+  -moz-transition: margin-left 0.1s ease;
+  transition: margin-left 0.1s ease;
+}
+
+nav.vertical li a, nav.vertical li:hover a  {
+  -webkit-transition: background-color 0.2s ease;
+  -moz-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
+  -webkit-transition: color 0.2s ease;
+  -moz-transition: color 0.2s ease;
+  transition: color 0.2s ease;
+}
+
+#puzzle td, #puzzle td:hover {
+  -webkit-transition: background-color 0.2s ease;
+  -moz-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
+}
+
+#puzzle td.active {
+  -webkit-transition: background-color 1s ease;
+  -moz-transition: background-color 1s ease;
+  transition: background-color 1s ease;
+}
+
+/* MOBILE */
+
+@media all and (max-width: 540px) {
+  #logo { display: none; }
+  header img { display: inline; }
 
   nav {
     margin-left: -12em;
@@ -107,160 +240,12 @@ nav {
     -moz-transition: margin-left 0.1s ease;
     transition: margin-left 0.1s ease;
   }
-
-  #puzzle table {
-    height: 100vh;
-  }
 }
 
-#puzzle td {
-  background-color: blue;
-  /* padding: 4vh 4.9vw; */
-  background-color: rgba(0,0,0,0.05);
-  -webkit-transition: background-color 0.2s ease;
-  -moz-transition: background-color 0.2s ease;
-  transition: background-color 0.2s ease;
-  text-align: center;
-  vertical-align: middle;
+/* NECESSARY EVIL: CSS HACKS */
 
-  border: 1px solid rgba(0,0,0,0.05);
-
-  /* disable text selection */
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
+/* Add invisble content to empty table cells so they have same size */
 #puzzle td:not(.init):empty:before {
   content: '.';
   color: rgba(0, 0, 0, 0);
-}
-
-#puzzle td.init {
-  background-color: rgba(0,0,0,0.1);
-}
-
-#puzzle td:not(.init) {
-  color: #7A8082;
-}
-
-#puzzle td:hover {
-  background-color: rgba(0,0,0,0.075);
-  -webkit-transition: background-color 0.2s ease;
-  -moz-transition: background-color 0.2s ease;
-  -transition: background-color 0.2s ease;
-}
-
-#puzzle td.active {
-  background-color: rgba(255,167,23,0.5);
-  -webkit-transition: background-color 1s ease;
-  -moz-transition: background-color 1s ease;
-  transition: background-color 1s ease;
-}
-
-#puzzle td.init.active {
-  background-color: rgba(255,167,23,0.6);
-
-}
-
-/* NAV */
-
-header time {
-  font-size: 2em;
-  font-weight: bold;
-}
-
-nav.vertical {
-  padding-top: 0;
-}
-
-nav.vertical ul { margin-left: 0; margin-top: 0; }
-
-nav.vertical ul, nav.vertical li {
-  display: block;
-  text-align: left;
-}
-
-nav.vertical li a {
-  display: block;
-  padding: 0.375em 1.5em;
-  font-size: 1.3em;
-  border-bottom: 0 none;
-  padding: 1em;
-  margin: 0 -1rem;
-  z-index: 2000;
-  -webkit-transition: background-color 0.2s ease;
-  -moz-transition: background-color 0.2s ease;
-  -webkit-transition: color 0.2s ease;
-  -moz-transition: color 0.2s ease;
-  color: #aaaaaa;
-}
-
-nav.vertical li:hover a {
-  border-bottom: none;
-  background-color: rgba(0,0,0,0.2);
-  color: white;
-  -webkit-transition: color 0.2s ease;
-  -moz-transition: color 0.2s ease;
-}
-
-nav.horizontal a, nav.horizontal a:link, nav.horizontal a:visited,
-nav.horizontal a:hover, nav.horizontal a:active,
-nav.vertical a, nav.vertical a:link, nav.vertical a:visited,
-nav.vertical a:hover, nav.vertical a:active {
-  border-bottom: none;
-}
-
-@media (max-width: 540px) {
-  nav {
-    text-align: left;
-  }
-
-  h1 {
-    margin: 0;
-    padding: 0;
-  }
-
-  nav time {
-    margin: 0;
-    padding: 0;
-  }
-
-  #logo {
-
-  }
-
-  h1, nav time, a.btn {
-    display: inline;
-    margin: 0 0.2rem;
-  }
-
-  a.btn {
-    margin: 0;
-    padding: 0 0.2rem;
-  }
-}
-
-/* WINNING TOAST */
-
-.solve {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  width: 100vw;
-  display: block;
-  background-color: #d5e9f0;
-  background-color: rgba(213,233,240,0.7);
-  padding: 0.75em;
-  text-align: center;
-}
-
-.solve p {
-  font-size: 1.3em;
-  font-weight: bold;
-  margin-bottom: 1.5em;
 }
