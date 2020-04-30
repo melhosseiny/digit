@@ -1,6 +1,6 @@
 # Digit
 
-A Sudoku game based on [Peter Norvig's solver](http://norvig.com/sudoku.html). You can play it [here](http://digit-sudoku.appspot.com/).
+A Sudoku game based on [Peter Norvig's solver](http://norvig.com/sudoku.html). You can play it [here](https://digit-sudoku.appspot.com/).
 
 ![Digit on Google Nexus 7 2, Chrome](/app/img/digit-nexus72.png?raw=true "Digit on Google Nexus 7 2, Chrome")
 
